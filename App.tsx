@@ -1,6 +1,14 @@
 import React from 'react';
+//Contexto de temas do styled-components
+import { ThemeProvider } from 'styled-components'
+
+import theme from './src/global/styles/theme';
 import { Dashboard } from './src/screens/Dashboard';
 
 export default function App() {
-  return <Dashboard />
+  return( 
+    <ThemeProvider theme={theme}>
+      <Dashboard  />
+    </ThemeProvider>
+  )
 }
