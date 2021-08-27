@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { HighlightCard } from '../../components/HighlightCard';
+import { TransactionCard } from '../../components/TransactionCard';
 import {
   HighlightCards,
   Container,
@@ -11,7 +12,9 @@ import {
   UserGretting,
   UserName,
   UserWrapper,
-  Icon
+  Icon,
+  Transactions,
+  Title
 } from './styles';
 
 export function Dashboard() {
@@ -35,11 +38,15 @@ export function Dashboard() {
           <Icon name="power" />
         </UserWrapper>
       </Header>
-      <HighlightCards>
+      <HighlightCards >
         <HighlightCard />
         <HighlightCard />
         <HighlightCard />
       </HighlightCards>
+      <Transactions>
+        <Title>Listagem</Title>
+        <TransactionCard />
+      </Transactions>
     </Container>
   )
 };
