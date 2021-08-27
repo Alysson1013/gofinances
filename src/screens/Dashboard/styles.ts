@@ -1,6 +1,10 @@
 import styled from "styled-components/native";
+import { FlatList } from "react-native";
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
-import { Feather } from '@expo/vector-icons'
+import { Feather } from '@expo/vector-icons';
+
+//tipagem personalizada
+import { DataListProps } from ".";
 
 export const Container = styled.View`
   flex: 1;
@@ -91,3 +95,13 @@ export const Title = styled.Text`
 
   margin-bottom: 16px;
 `;
+
+//Cria uma nova flatlis com o tipo personalizado DataListProps
+//Estilização de tipagem personalizada
+export const TransactionsList = styled(
+    FlatList as new () => FlatList<DataListProps>
+  ).attrs({
+  showsVerticalScrollIndicator: false
+})`
+
+`
