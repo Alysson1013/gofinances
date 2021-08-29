@@ -11,6 +11,7 @@ import {
   Date
 } from './styles'
 
+//adiciona o id as props e exporta para ser consumida pela lita no Dashboard
 export interface TransactionCardProps {
   type: 'positive' | 'negative';
   title: string;
