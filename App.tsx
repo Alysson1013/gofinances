@@ -1,7 +1,10 @@
 import React from 'react';
 //Contexto de temas do styled-components
+import 'react-native-gesture-handler'
 import { ThemeProvider } from 'styled-components'
 import AppLoading from 'expo-app-loading';
+
+import { NavigationContainer } from '@react-navigation/native'
 
 import { 
   useFonts,
@@ -11,6 +14,9 @@ import {
 } from '@expo-google-fonts/poppins'
 
 import theme from './src/global/styles/theme';
+import { AppRoutes } from './src/routes/app.routes';
+
+
 import { Register } from './src/screens/Register';
 
 export default function App() {
@@ -26,7 +32,9 @@ export default function App() {
   
   return( 
     <ThemeProvider theme={theme}>
-      <Register  />
+      <NavigationContainer>
+        <AppRoutes />
+      </NavigationContainer>
     </ThemeProvider>
   )
 }
