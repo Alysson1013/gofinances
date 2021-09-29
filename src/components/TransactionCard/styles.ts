@@ -40,6 +40,8 @@ export const Icon = styled(Feather)`
   color: ${({ theme }) => theme.colors.text};
 `;
 export const CategoryName = styled.Text`
+  margin-left: ${RFValue(10)}px;
+
   font-size: ${RFValue(14)}px;
   color: ${({ theme }) => theme.colors.text};
 `;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { categories } from '../../utils/categories';
 
 import {
   Container,
@@ -14,15 +15,10 @@ import {
 //adiciona o id as props e exporta para ser consumida pela lita no Dashboard
 export interface TransactionCardProps {
   type: 'positive' | 'negative';
-  title: string;
-  amount: string;
-  category: CategoryProps,
-  date: string;
-}
-
-interface CategoryProps {
   name: string;
-  icon: string;
+  amount: string;
+  category: string;
+  date: string;
 }
 
 interface Props {
@@ -30,10 +26,14 @@ interface Props {
 }
 
 export function TransactionCard({ data }: Props) {
+  const category = categories.filter(
+    item => item.key === data.category
+  );
+
   return (
     <Container>
       <Title>
-        {data.title}
+        {data.name}
       </Title>
 
       <Amount type={data.type}>
@@ -43,9 +43,9 @@ export function TransactionCard({ data }: Props) {
 
       <Footer>
         <Category>
-          <Icon name={data.category.icon} />
+          <Icon name={category.icon} />
           <CategoryName>
-            {data.category.name}
+            {category.name}
           </CategoryName>
         </Category>
 

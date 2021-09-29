@@ -1,6 +1,8 @@
 import React from 'react';
 //Contexto de temas do styled-components
 import 'react-native-gesture-handler'
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR'
 import { ThemeProvider } from 'styled-components'
 import AppLoading from 'expo-app-loading';
 

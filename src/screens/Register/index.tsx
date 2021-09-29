@@ -49,7 +49,7 @@ export function Register() {
   const [categoryModalOpen, setCategoryModalOpen] = React.useState(false)
 
   const dataKey = '@gofinances:transactions';
-  const navigation = useNavigation()
+  const navigation = useNavigation<any>()
 
   const [category, setCategory] = React.useState({
     key: 'category',
@@ -98,6 +98,8 @@ export function Register() {
     }
 
     try {
+      const dataKey = '@gofinances:transactions';
+
       const data = await AsyncStorage.getItem(dataKey)
       const currentData = data ? JSON.parse(data) : []
 
@@ -106,17 +108,16 @@ export function Register() {
         newTransaction
       ]
 
-      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted))
- 
+      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
 
-      reset()
-      setTransactionType('')
+      reset();
+      setTransactionType('');
       setCategory({
         key: 'category',
         name: 'Categoria'
-      })
+      });
 
-      navigation.navigate("Listagem")
+      navigation.navigate('Listagem');
     } catch(error) {
       console.log(error)
       Alert.alert("Não foi possível salvar!")
