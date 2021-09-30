@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Container,
@@ -7,27 +7,50 @@ import {
   Icon,
   Footer,
   Amount,
-  LastTransaction
-} from './styles'
+  LastTransaction,
+} from './styles';
 
-export function HighlightCard() {
+interface Props {
+  type: 'up' | 'down' | 'total';
+  title: string;
+  amount: string;
+  lastTransaction: string;
+}
 
+const icon = {
+  up: 'arrow-up-circle',
+  down: 'arrow-down-circle',
+  total: 'dollar-sign'
+}
+
+
+export function HighlightCard({
+  type,
+  title,
+  amount,
+  lastTransaction
+} : Props){
   return (
-    <Container>
+    <Container type={type}>
       <Header>
-        <Title>
-          Entrada
+        <Title type={type}>
+          {title}
         </Title>
-        <Icon name="arrow-up" />
+        <Icon
+          name={icon[type]}
+          type={type}
+        />
       </Header>
+
       <Footer>
-        <Amount>
-          R$ 17.400,00
+        <Amount type={type}>
+          {amount}
         </Amount>
-        <LastTransaction>
-          Última entrada dia 13 de abril
+        <LastTransaction type={type}>
+          {lastTransaction}
         </LastTransaction>
       </Footer>
+
     </Container>
   )
 }
