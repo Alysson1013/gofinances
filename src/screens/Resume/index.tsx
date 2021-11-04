@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { VictoryPie } from 'victory-native'
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useTheme } from 'styled-components';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import { HistoryCard } from '../../components/HistoryCard';
 
@@ -14,9 +15,14 @@ import {
   Header,
   Title,
   Content,
-  ChartContainer
+  ChartContainer,
+  MonthSelect,
+  MonthSelectButton,
+  MonthSelectIcon,
+  Month,
 } from './styles'
 import { categories } from '../../utils/categories';
+
 
 interface TransactionData {
   type: 'positive' | 'negative';
@@ -35,11 +41,11 @@ interface CategoryData {
   percent: string;
 }
 
-export function Resume(){
+export function Resume() {
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>([])
   const theme = useTheme()
 
-  async function loadData(){
+  async function loadData() {
     const dataKey = '@gofinances:transactions';
     const response = await AsyncStorage.getItem(dataKey)
     const responseFormatted = response ? JSON.parse(response) : []
@@ -50,7 +56,7 @@ export function Resume(){
     const expensivesTotal = expensives
       .reduce((acumullator: number, expensive: TransactionData) => {
         return acumullator + Number(expensive.amount)
-    }, 0) 
+      }, 0)
 
     const totalByCategory: CategoryData[] = []
 
@@ -58,12 +64,12 @@ export function Resume(){
       let categorySum = 0;
 
       expensives.forEach((expensive: TransactionData) => {
-        if(expensive.category === category.key){
+        if (expensive.category === category.key) {
           categorySum += Number(expensive.amount)
         }
       })
 
-      if (categorySum > 0){
+      if (categorySum > 0) {
         const totalFormatted = categorySum.toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL'
@@ -95,7 +101,27 @@ export function Resume(){
         <Title>Resumo por categoria</Title>
       </Header>
 
-      <Content>
+      <MonthSelect>
+        <MonthSelectButton>
+          <MonthSelectIcon name="chevron-left" />
+        </MonthSelectButton>
+
+        <Month>
+          Maio
+        </Month>
+
+        <MonthSelectButton>
+          <MonthSelectIcon name="chevron-right" />
+        </MonthSelectButton>
+      </MonthSelect>
+
+      <Content
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          paddingBottom: useBottomTabBarHeight()
+        }}
+      >
         <ChartContainer>
           <VictoryPie
             data={totalByCategories}
@@ -112,16 +138,16 @@ export function Resume(){
             y="total"
           />
         </ChartContainer>
-      {
-        totalByCategories.map(item => (
-          <HistoryCard
-            key={ item.key }
-            title={ item.name }
-            amount={ item.totalFormatted }
-            color={ item.color }
-          />
-        ))
-      }
+        {
+          totalByCategories.map(item => (
+            <HistoryCard
+              key={item.key}
+              title={item.name}
+              amount={item.totalFormatted}
+              color={item.color}
+            />
+          ))
+        }
       </Content>
 
     </Container>
